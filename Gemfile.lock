@@ -1,0 +1,188 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activemodel (7.0.4.3)
+      activesupport (= 7.0.4.3)
+    activerecord (7.0.4.3)
+      activemodel (= 7.0.4.3)
+      activesupport (= 7.0.4.3)
+    activesupport (7.0.4.3)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+    ast (2.4.2)
+    async (2.5.0)
+      console (~> 1.10)
+      io-event (~> 1.1)
+      timers (~> 4.1)
+    bcrypt_pbkdf (1.1.0)
+    builder (3.2.4)
+    concurrent-ruby (1.2.2)
+    console (1.16.2)
+      fiber-local
+    declarative (0.0.20)
+    dotenv (2.8.1)
+    dry-core (1.0.0)
+      concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-inflector (1.0.0)
+    dry-logic (1.5.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-types (1.7.1)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0)
+      dry-inflector (~> 1.0)
+      dry-logic (~> 1.4)
+      zeitwerk (~> 2.6)
+    ed25519 (1.3.0)
+    faraday (2.7.4)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-mashify (0.1.1)
+      faraday (~> 2.0)
+      hashie
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (3.0.2)
+    fiber-local (1.0.0)
+    foreman (0.87.2)
+    gli (2.21.0)
+    grape (1.7.0)
+      activesupport
+      builder
+      dry-types (>= 1.1)
+      mustermann-grape (~> 1.0.0)
+      rack (>= 1.3.0)
+      rack-accept
+    grape-roar (0.4.1)
+      grape
+      multi_json
+      roar (~> 1.1.0)
+    grape-swagger (1.6.0)
+      grape (~> 1.3)
+    hashie (5.0.0)
+    hashie-forbidden_attributes (0.1.1)
+      hashie (>= 3.0)
+    i18n (1.13.0)
+      concurrent-ruby (~> 1.0)
+    io-event (1.2.0)
+    json (2.6.3)
+    kaminari-core (1.2.2)
+    kaminari-grape (1.0.1)
+      grape
+      kaminari-core (~> 1.0)
+    mina (1.2.4)
+      open4 (~> 1.3.4)
+      rake
+    mina-version_managers (0.1.0)
+      mina (>= 1.0.0)
+    minitest (5.18.0)
+    multi_json (1.15.0)
+    multipart-post (2.3.0)
+    mustermann (3.0.0)
+      ruby2_keywords (~> 0.0.1)
+    mustermann-grape (1.0.2)
+      mustermann (>= 1.0.0)
+    mysql2 (0.5.5)
+    net-scp (4.0.0)
+      net-ssh (>= 2.6.5, < 8.0.0)
+    net-ssh (7.1.0)
+    nio4r (2.5.9)
+    open4 (1.3.4)
+    otr-activerecord (2.1.2)
+      activerecord (>= 4.0, < 7.1)
+      hashie-forbidden_attributes (~> 0.1)
+    pagy (6.0.4)
+    pagy_cursor (0.6.0)
+      activerecord (>= 5)
+      pagy (>= 6, < 7)
+    parallel (1.23.0)
+    parser (3.2.2.1)
+      ast (~> 2.4.1)
+    puma (6.2.2)
+      nio4r (~> 2.0)
+    rack (3.0.7)
+    rack-accept (0.4.5)
+      rack (>= 0.4)
+    rack-cors (2.0.1)
+      rack (>= 2.0.0)
+    rack-rewrite (1.5.1)
+    rack-server-pages (0.1.0)
+      rack
+    rainbow (3.1.1)
+    rake (13.0.6)
+    regexp_parser (2.8.0)
+    representable (3.2.0)
+      declarative (< 0.1.0)
+      trailblazer-option (>= 0.1.1, < 0.2.0)
+      uber (< 0.2.0)
+    rexml (3.2.5)
+    roar (1.1.1)
+      representable (~> 3.0)
+    rubocop (1.50.2)
+      json (~> 2.3)
+      parallel (~> 1.10)
+      parser (>= 3.2.0.0)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.28.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.28.0)
+      parser (>= 3.2.1.0)
+    ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
+    slack-ruby-bot-server (2.1.0)
+      async
+      foreman
+      grape
+      grape-roar (>= 0.4.0)
+      grape-swagger
+      kaminari-grape
+      rack-cors
+      rack-rewrite
+      rack-server-pages
+      slack-ruby-client
+    slack-ruby-bot-server-events (0.3.2)
+      slack-ruby-bot-server (>= 0.12.0)
+    slack-ruby-client (2.1.0)
+      faraday (>= 2.0)
+      faraday-mashify
+      faraday-multipart
+      gli
+      hashie
+    timers (4.3.5)
+    trailblazer-option (0.1.2)
+    tzinfo (2.0.6)
+      concurrent-ruby (~> 1.0)
+    uber (0.1.0)
+    unicode-display_width (2.4.2)
+    zeitwerk (2.6.8)
+
+PLATFORMS
+  arm64-darwin-22
+
+DEPENDENCIES
+  activerecord (~> 7.0)
+  bcrypt_pbkdf (~> 1.1, < 2.0)
+  dotenv (~> 2.8)
+  ed25519 (~> 1.3, < 2.0)
+  mina (~> 1.2)
+  mina-version_managers (~> 0.1)
+  mysql2 (~> 0.5)
+  net-scp (~> 4.0)
+  otr-activerecord (~> 2.1)
+  pagy_cursor (~> 0.6)
+  puma (~> 6.2)
+  rubocop (~> 1.50)
+  slack-ruby-bot-server-events (~> 0.3)
+
+RUBY VERSION
+   ruby 3.2.2p53
+
+BUNDLED WITH
+   2.4.13

@@ -1,0 +1,19 @@
+# Ignore bundler config.
+/.bundle
+
+# macOS files
+.DS_Store
+
+# Ignore IDE.
+/.idea
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+
+# Used by dotenv library to load environment variables.
+.env
+.env.production
+
+# Keep passwords out of repository
+/config/database.yml
