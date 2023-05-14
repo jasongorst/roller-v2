@@ -9,7 +9,7 @@ Bundler.require :default
 
 Dotenv.load '.env.production'
 
-Dir[File.expand_path('config/initializers', __dir__) + '/**/*.rb'].sort.each do |file|
+Dir[File.expand_path('config/initializers', __dir__) + '/*.rb'].sort.each do |file|
   require file
 end
 

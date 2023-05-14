@@ -33,7 +33,7 @@ set :version_scheme, :datetime
 # Some plugins already add folders to shared_dirs like `mina/rails` add `public/assets`, `vendor/bundle` and many more
 # run `mina -d` to see all folders and files already included in `shared_dirs` and `shared_files`
 set :shared_dirs, fetch(:shared_dirs, []).push('log')
-set :shared_files, fetch(:shared_files, []).push('.env.production')
+set :shared_files, fetch(:shared_files, []).push('.env.production', 'config/database.yml')
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
@@ -61,6 +61,7 @@ task :deploy do
     # instance of your project.
     invoke :'git:clone'
     invoke :upload_dotenv
+    invoke :upload_yml
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'deploy:cleanup'
@@ -73,6 +74,7 @@ end
 
 desc 'Restarts the service on the server.'
 task :restart do
+  comment 'Restarting the app'
   in_path(fetch(:current_path)) do
     command %(/usr/bin/passenger-config restart-app `pwd` --ignore-app-not-running)
   end
@@ -80,7 +82,16 @@ end
 
 desc 'Upload .env files.'
 task :upload_dotenv do
+  comment 'Uploading .env files'
   Net::SCP.start(fetch(:domain), fetch(:user), port: fetch(:port)) do |scp|
     scp.upload! '.env.production', fetch(:shared_path)
+  end
+end
+
+desc 'Upload config/database.yml.'
+task :upload_yml do
+  comment 'Uploading database.yml'
+  Net::SCP.start(fetch(:domain), fetch(:user), port: fetch(:port)) do |scp|
+    scp.upload! 'config/database.yml', File.expand_path('config/database.yml', fetch(:shared_path))
   end
 end
