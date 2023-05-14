@@ -46,7 +46,6 @@ end
 # Put any custom commands you need to run at setup
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
-  invoke :upload_dotenv
   # command %{rbenv install 2.5.3 --skip-existing}
   # command %{rvm install ruby-2.5.3}
   # command %{gem install bundler}
@@ -61,6 +60,7 @@ task :deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
     invoke :'git:clone'
+    invoke :upload_dotenv
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'deploy:cleanup'
