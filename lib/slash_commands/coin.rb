@@ -6,15 +6,24 @@ SlackRubyBotServer::Events.configure do |config|
     flip = %w[Heads Tails].sample
 
     {
-      text: "<@#{data.user_name}> flips a coin #{text}",
-      fields: [
+      blocks: [
         {
-          title: 'Result',
-          value: "#{flip}!",
-          short: true
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: 'Someone flips a coin.'
+          }
+        },
+        {
+          type: 'section',
+          fields: [
+            {
+              type: 'mrkdwn',
+              text: "*Result:*\n#{flip}!"
+            }
+          ]
         }
-      ],
-      mrkdwn_in: ['text'], color: 'good'
+      ]
     }
   end
 end
