@@ -7,7 +7,7 @@ SlackRubyBotServer::Events.configure do |config|
     command.logger.info 'Rolling some dice.'
 
     token = ENV['BOT_USER_OAUTH_TOKEN']
-    slack_client = Slack::Web::Client.new(token:)
+    slack_client = Slack::Web::Client.new(token: token)
 
     slack_client.conversations_join(channel: command[:channel_id])
 
@@ -25,15 +25,16 @@ SlackRubyBotServer::Events.configure do |config|
           text:
             {
               type: 'mrkdwn',
-              text: "<@#{command[:user_id]}> rolls *#{dice.number}d#{dice.sides}#{dice.modifier}* #{command[:text]}."
+              text: "<@#{command[:user_id]}> rolls *#{dice.number}d#{dice.sides}#{dice.modifier}."
             }
         },
+        # headers
         {
           type: 'section',
           fields: [
             {
               type: 'mrkdwn',
-              text: "*Rolls:*\n#{dice.rolls}"
+              text: "*Rolls*"
             }
           ]
         },
@@ -42,7 +43,26 @@ SlackRubyBotServer::Events.configure do |config|
           fields: [
             {
               type: 'mrkdwn',
-              text: "*Total:*\n#{dice.total}"
+              text: "*Total*"
+            }
+          ]
+        },
+        # details
+        {
+          type: 'section',
+          fields: [
+            {
+              type: 'plain_text',
+              text: dice.rolls
+            }
+          ]
+        },
+        {
+          type: 'section',
+          fields: [
+            {
+              type: 'plain_text',
+              text: dice.total
             }
           ]
         }
