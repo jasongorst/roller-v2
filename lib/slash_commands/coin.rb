@@ -2,6 +2,7 @@
 
 SlackRubyBotServer::Events.configure do |config|
   config.on :command, '/coin' do |command|
+    command.logger.info "Command:\n#{command}"
     command.logger.info 'Flipping a coin.'
 
     team = Team.where(team_id: command[:team]) || raise("Cannot find team with ID #{command[:team]}.")
