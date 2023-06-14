@@ -13,5 +13,5 @@ Dir[File.expand_path('config/initializers', __dir__) + '/*.rb'].sort.each do |fi
   require file
 end
 
-# require_relative 'lib/models'
+require_relative 'lib/models'
 require_relative 'lib/slash_commands'
