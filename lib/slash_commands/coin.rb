@@ -9,11 +9,11 @@ SlackRubyBotServer::Events.configure do |config|
 
     flip = %w[Heads Tails].sample
     slack_client.chat_postMessage(
-      channel: command[:channel],
+      channel: command[:channel_id],
       blocks: [
         { type: 'section',
           text: { type: 'mrkdwn',
-                  text: "<@#{command[:user]}> flips a coin." }
+                  text: "<@#{command[:user_id]}> flips a coin." }
         },
         { type: 'section',
           fields: [{ type: 'mrkdwn',
