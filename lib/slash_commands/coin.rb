@@ -25,6 +25,6 @@ SlackRubyBotServer::Events.configure do |config|
       ]
     )
 
-    { ok: true }
+    nil
   end
 end
