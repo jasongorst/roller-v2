@@ -2,11 +2,10 @@
 
 SlackRubyBotServer::Events.configure do |config|
   config.on :command, '/coin' do |command|
-    command.logger.info "Command:\n#{command}"
     command.logger.info 'Flipping a coin.'
 
     token = ENV['BOT_USER_OAUTH_TOKEN']
-    slack_client = Slack::Web::Client.new(token: token)
+    slack_client = Slack::Web::Client.new(token:)
 
     slack_client.conversations_join(channel: command[:channel_id])
 
