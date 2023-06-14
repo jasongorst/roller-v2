@@ -34,7 +34,7 @@ SlackRubyBotServer::Events.configure do |config|
           fields: [
             {
               type: 'mrkdwn',
-              text: "*Rolls*"
+              text: '*Rolls*'
             }
           ]
         },
@@ -43,7 +43,7 @@ SlackRubyBotServer::Events.configure do |config|
           fields: [
             {
               type: 'mrkdwn',
-              text: "*Total*"
+              text: '*Total*'
             }
           ]
         },
@@ -53,7 +53,7 @@ SlackRubyBotServer::Events.configure do |config|
           fields: [
             {
               type: 'plain_text',
-              text: dice.rolls
+              text: dice.rolls.to_s
             }
           ]
         },
