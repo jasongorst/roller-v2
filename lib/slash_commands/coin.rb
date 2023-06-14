@@ -16,7 +16,7 @@ SlackRubyBotServer::Events.configure do |config|
       blocks: [
         { type: 'section',
           text: { type: 'mrkdwn',
-                  text: "<@#{command[:user_id]}> flips a coin." }
+                  text: "<@#{command[:user_id]}> flips a coin #{command[:text]}." }
         },
         { type: 'section',
           fields: [{ type: 'mrkdwn',
