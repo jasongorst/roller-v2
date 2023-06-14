@@ -1,48 +1,34 @@
 # frozen_string_literal: true
 
+require 'abbrev'
+
 module Roller
   class WoD
-    private_class_method :parse_args
-
     DEFAULT_DIFFICULTY = 6
 
     attr_reader :number, :difficulty, :explode, :rolls, :extra_rolls
 
-    def initialize(number, difficulty, explode: true)
+    def initialize(number, difficulty, explode = true)
       @number = number
       @difficulty = difficulty
       @explode = explode
     end
 
     def self.parse(args)
-      new(*parse_args(args))
-    end
-
-    def self.noexplode_parse(args)
-      new(*parse_args(args), explode: false)
-    end
-
-    def self.parse_args(args)
+      # format: number difficulty [noexplode]
       args = args.split
-
-      begin
-        number = Integer(args.shift)
-      rescue StandardError
-        raise ArgumentError, 'Invalid number of dice.'
-      end
+      number = Integer(args.shift) rescue raise(ArgumentError, 'Invalid number of dice.')
 
       diff_str = args.shift
-      if diff_str
-        begin
-          difficulty = Integer(diff_str)
-        rescue StandardError
-          raise ArgumentError, 'Invalid difficulty.'
-        end
-      else
-        difficulty = DEFAULT_DIFFICULTY
-      end
+      difficulty = if diff_str
+                     Integer(diff_str) rescue raise(ArgumentError, 'Invalid difficulty.')
+                   else
+                     DEFAULT_DIFFICULTY
+                   end
 
-      [number, difficulty]
+      explode = !Abbrev.abbrev(['noexplode']).keys.include?(args.shift)
+
+      new(number, difficulty, explode)
     end
 
     def roll
