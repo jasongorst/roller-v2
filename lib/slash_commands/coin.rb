@@ -8,11 +8,11 @@ SlackRubyBotServer::Events.configure do |config|
     token = ENV['BOT_USER_OAUTH_TOKEN']
     slack_client = Slack::Web::Client.new(token: token)
 
-    slack_client.conversations_join(channel: command[:channel])
+    slack_client.conversations_join(channel: command[:channel_id])
 
     flip = %w[Heads Tails].sample
     slack_client.chat_postMessage(
-      channel: command[:channel],
+      channel: command[:channel_id],
       blocks: [
         { type: 'section',
           text: { type: 'mrkdwn',
