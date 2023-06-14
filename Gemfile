@@ -11,6 +11,7 @@ gem 'otr-activerecord', '~> 2.1.2'
 gem 'pagy_cursor', '~> 0.6.0'
 gem 'puma', '~> 6.3.0'
 gem 'rack', '~> 2.2.7'
+gem 'slack-ruby-bot-server', '~> 2.1.0'
 gem 'slack-ruby-bot-server-events', '~> 0.3.2'
 
 group :development do
