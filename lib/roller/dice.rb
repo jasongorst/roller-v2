@@ -4,7 +4,7 @@ module Roller
   class Dice
     PATTERN = /^(?<number>\d+)?[dD](?<sides>\d+)(?<modifier>[+-]\d+)?$/
 
-    attr_reader :number, :sides, :modifier, :rolls, :total
+    attr_reader :number, :sides, :rolls, :total
 
     def initialize(number, sides, modifier = 0)
       @number = number
@@ -37,6 +37,14 @@ module Roller
       @total = @rolls.inject(:+) + @modifier
 
       self
+    end
+
+    def modifier
+      if @modifier.to_i == 0
+        ''
+      else
+        sprintf('%+d', @modifier)
+      end
     end
   end
 end
