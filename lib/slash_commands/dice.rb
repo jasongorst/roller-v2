@@ -22,14 +22,10 @@ SlackRubyBotServer::Events.configure do |config|
       blocks: [
         {
           type: 'section',
-          text:
-            {
-              type: 'mrkdwn',
-              text: "<@#{command[:user_id]}> rolls *#{dice.number}d#{dice.sides}#{dice.modifier}."
-            }
-        },
-        {
-          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: "<@#{command[:user_id]}> rolls *#{dice.number}d#{dice.sides}#{dice.modifier}."
+          },
           fields: [
             # headers
             {
