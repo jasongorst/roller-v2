@@ -5,7 +5,8 @@ SlackRubyBotServer::Events.configure do |config|
     command.logger.info "Command:\n#{command}"
     command.logger.info 'Flipping a coin.'
 
-    slack_client = Slack::Web::Client.new(token: command[:token])
+    token = ENV['BOT_USER_OAUTH_TOKEN']
+    slack_client = Slack::Web::Client.new(token: token)
 
     flip = %w[Heads Tails].sample
     slack_client.chat_postMessage(
