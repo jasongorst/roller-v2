@@ -24,7 +24,7 @@ SlackRubyBotServer::Events.configure do |config|
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: "<@#{command[:user_id]}> rolls *#{dice.number}d#{dice.sides}#{dice.modifier}."
+            text: "<@#{command[:user_id]}> rolls *#{dice.number}d#{dice.sides}#{dice.modifier}*."
           },
           fields: [
             # headers
@@ -38,12 +38,12 @@ SlackRubyBotServer::Events.configure do |config|
             },
             # details
             {
-              type: 'mrkdwn',
+              type: 'plain_text',
               text: dice.rolls.to_s
             },
             {
-              type: 'mrkdwn',
-              text: dice.total
+              type: 'plain_text',
+              text: dice.total.to_s
             }
           ]
         }
