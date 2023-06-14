@@ -41,7 +41,7 @@ def result(dice)
   elsif dice.failure?
     'Failure'
   else
-    "Successes: *#{dice.check}"
+    "Successes: *#{dice.check}*"
   end
 end
 
