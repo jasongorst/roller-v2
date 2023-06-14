@@ -5,9 +5,7 @@ SlackRubyBotServer::Events.configure do |config|
     command.logger.info "Command:\n#{command}"
     command.logger.info 'Flipping a coin.'
 
-    team = Team.where(team_id: command[:team]) || raise("Cannot find team with ID #{command[:team]}.")
-
-    slack_client = Slack::Web::Client.new(token: team.token)
+    slack_client = Slack::Web::Client.new(token: command[:token])
 
     flip = %w[Heads Tails].sample
     slack_client.chat_postMessage(
