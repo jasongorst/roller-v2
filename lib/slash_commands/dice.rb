@@ -38,11 +38,11 @@ SlackRubyBotServer::Events.configure do |config|
             },
             # details
             {
-              type: 'plain_text',
+              type: 'mrkdwn',
               text: dice.rolls.to_s
             },
             {
-              type: 'plain_text',
+              type: 'mrkdwn',
               text: dice.total
             }
           ]
