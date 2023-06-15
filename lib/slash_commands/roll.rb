@@ -6,47 +6,36 @@ SlackRubyBotServer::Events.configure do |config|
   config.on :command, '/roll' do |command|
     command.logger.info 'Rolling some dice (like WoD).'
 
-    token = ENV['BOT_USER_OAUTH_TOKEN']
-    slack_client = Slack::Web::Client.new(token: token)
-
+    team = Team.where(team_id: command[:team_id]).first || raise("Cannot find team with ID #{command[:team_id]}.")
+    slack_client = Slack::Web::Client.new(token: team.token)
     slack_client.conversations_join(channel: command[:channel_id])
 
-    dice = begin
-      Roller::WoD.parse(command[:text]).roll
-    rescue ArgumentError
-      "Invalid dice notation #{command[:text]}"
-    end
+    begin
+      roll = Roller::WoD.parse(command[:text]).roll
 
-    slack_client.chat_postMessage(
-      channel: command[:channel_id],
-      blocks: [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: "<@#{command[:user_id]}> rolls *#{dice.number}* dice (diff *#{dice.difficulty}*)."
-          },
-          fields: fields(dice)
-        }
-      ]
-    )
+      slack_client.chat_postMessage(
+        channel: command[:channel_id],
+        blocks: [
+          {
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: "<@#{command[:user_id]}> rolls *#{roll.number}* dice (diff *#{roll.difficulty}*)."
+            },
+            fields: fields(roll)
+          }
+        ]
+      )
+    rescue ArgumentError
+      raise "Invalid dice notation #{command[:text]}"
+    end
 
     nil
   end
 end
 
-def result(dice)
-  if dice.botch?
-    '_BOTCH!_'
-  elsif dice.failure?
-    'Failure'
-  else
-    "Successes: *#{dice.check}*"
-  end
-end
-
-def fields(dice)
-  if dice.extra_rolls.empty?
+def fields(roll)
+  if roll.extra_rolls.empty?
     [
       {
         type: 'mrkdwn',
@@ -58,11 +47,11 @@ def fields(dice)
       },
       {
         type: 'plain_text',
-        text: dice.rolls.to_s
+        text: roll.rolls.to_s
       },
       {
         type: 'mrkdwn',
-        text: result(dice)
+        text: result(roll)
       }
     ]
   else
@@ -77,11 +66,11 @@ def fields(dice)
       },
       {
         type: 'plain_text',
-        text: dice.rolls.to_s
+        text: roll.rolls.to_s
       },
       {
         type: 'plain_text',
-        text: dice.extra_rolls.to_s
+        text: roll.extra_rolls.to_s
       },
       {
         type: 'mrkdwn',
@@ -89,8 +78,18 @@ def fields(dice)
       },
       {
         type: 'mrkdwn',
-        text: result(dice)
+        text: result(roll)
       }
     ]
+  end
+end
+
+def result(roll)
+  if roll.botch?
+    '_BOTCH!_'
+  elsif roll.failure?
+    'Failure'
+  else
+    "Successes: *#{roll.check}*"
   end
 end
