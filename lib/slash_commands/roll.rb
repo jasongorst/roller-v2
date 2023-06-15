@@ -78,7 +78,7 @@ def fields(roll)
       },
       {
         type: 'plain_text',
-        text: ''
+        text: ' '
       },
       {
         type: 'mrkdwn',
