@@ -77,6 +77,10 @@ def fields(roll)
         text: '*Result*'
       },
       {
+        type: 'plain_text',
+        text: ''
+      },
+      {
         type: 'mrkdwn',
         text: result(roll)
       }
