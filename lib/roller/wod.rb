@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require 'abbrev'
-
 module Roller
   class WoD
     DEFAULT_DIFFICULTY = 6
+    NOEXPLODE = %w[noexplode noexplod noexplo noexpl noexp noex noe no n].freeze
 
     attr_reader :number, :difficulty, :explode, :rolls, :extra_rolls
 
@@ -15,7 +14,7 @@ module Roller
     end
 
     def self.parse(args)
-      # format: number difficulty [noexplode]
+      # FORMAT: {number of dice} {difficulty} ["noexplode"]
       args = args.split
       number = Integer(args.shift) rescue raise(ArgumentError, 'Invalid number of dice.')
 
@@ -26,7 +25,7 @@ module Roller
                      DEFAULT_DIFFICULTY
                    end
 
-      explode = !Abbrev.abbrev(['noexplode']).keys.include?(args.shift)
+      explode = NOEXPLODE.include?(args.shift&.downcase)
 
       new(number, difficulty, explode)
     end
