@@ -4,9 +4,10 @@ require 'mina/git'
 require 'mina/bundler'
 require 'mina/rbenv' # for rbenv support. (https://rbenv.org)
 require 'mina/deploy'
-
 require 'net/scp'
-require 'dotenv/load'
+
+require 'dotenv'
+Dotenv.load('deploy.env')
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
@@ -82,9 +83,9 @@ end
 
 desc 'Upload .env files.'
 task :upload_dotenv do
-  comment 'Uploading .env files'
+  comment 'Uploading .env file'
   Net::SCP.start(fetch(:domain), fetch(:user), port: fetch(:port)) do |scp|
-    scp.upload! '.env.production', fetch(:shared_path)
+    scp.upload! '.env', fetch(:shared_path)
   end
 end
 
