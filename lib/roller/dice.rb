@@ -13,20 +13,23 @@ module Roller
     end
 
     def self.parse(args)
-      match = args.match PATTERN
+      match = args.match(PATTERN)
+      raise(ArgumentError, "Invalid die notation: #{args}") if match.nil?
 
-      raise ArgumentError, "Invalid die notation: #{args}" unless match
-
-      number = begin
-                 Integer(match[:number])
-               rescue StandardError
+      number = if match[:number].nil?
                  1
+               else
+                 Integer(match[:number])
                end
+      raise(ArgumentError, 'Number of dice can\'t be zero.') if number.zero?
+
       sides = Integer(match[:sides])
-      modifier = begin
-                   Integer(match[:modifier])
-                 rescue StandardError
+      raise(ArgumentError, 'Number of sides can\'t be zero.') if sides.zero?
+
+      modifier = if match[:modifier].nil?
                    0
+                 else
+                   Integer(match[:modifier])
                  end
 
       new(number, sides, modifier)
@@ -40,10 +43,10 @@ module Roller
     end
 
     def modifier
-      if @modifier.to_i == 0
+      if @modifier.zero?
         ''
       else
-        sprintf('%+d', @modifier)
+        format('%+d', @modifier)
       end
     end
   end
