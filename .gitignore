@@ -13,7 +13,7 @@
 
 # Used by dotenv library to load environment variables.
 .env
-.env.production
+deploy.env
 
 # Keep passwords out of repository
 /config/database.yml

@@ -6,8 +6,7 @@ require 'active_record' # required for slack-ruby-bot-server-events
 require 'bundler/setup'
 
 Bundler.require :default
-
-Dotenv.load '.env.production'
+Dotenv.load
 
 Dir[File.expand_path('config/initializers', __dir__) + '/*.rb'].sort.each do |file|
   require file

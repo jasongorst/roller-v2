@@ -4,9 +4,10 @@ require 'mina/git'
 require 'mina/bundler'
 require 'mina/rbenv' # for rbenv support. (https://rbenv.org)
 require 'mina/deploy'
-
 require 'net/scp'
-require 'dotenv/load'
+
+require 'dotenv'
+Dotenv.load('deploy.env')
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
@@ -33,7 +34,7 @@ set :version_scheme, :datetime
 # Some plugins already add folders to shared_dirs like `mina/rails` add `public/assets`, `vendor/bundle` and many more
 # run `mina -d` to see all folders and files already included in `shared_dirs` and `shared_files`
 set :shared_dirs, fetch(:shared_dirs, []).push('log')
-set :shared_files, fetch(:shared_files, []).push('.env.production', 'config/database.yml')
+set :shared_files, fetch(:shared_files, []).push('.env', 'config/database.yml')
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
@@ -82,9 +83,9 @@ end
 
 desc 'Upload .env files.'
 task :upload_dotenv do
-  comment 'Uploading .env files'
+  comment 'Uploading .env file'
   Net::SCP.start(fetch(:domain), fetch(:user), port: fetch(:port)) do |scp|
-    scp.upload! '.env.production', fetch(:shared_path)
+    scp.upload! '.env', fetch(:shared_path)
   end
 end
 
