@@ -15,33 +15,13 @@ SlackRubyBotServer::Events.configure do |config|
 
       slack_client.chat_postMessage(
         channel: command[:channel_id],
-        blocks: [
-          {
-            type: 'section',
-            text: {
-              type: 'mrkdwn',
-              text: "<@#{command[:user_id]}> rolls *#{roll.number}d#{roll.sides}#{roll.modifier}*."
-            },
-            fields: [
-              {
-                type: 'mrkdwn',
-                text: '*Rolls*'
-              },
-              {
-                type: 'mrkdwn',
-                text: '*Total*'
-              },
-              {
-                type: 'plain_text',
-                text: roll.rolls.to_s
-              },
-              {
-                type: 'plain_text',
-                text: roll.total.to_s
-              }
-            ]
-          }
-        ]
+        blocks: [{ type: 'section',
+                   text: { type: 'mrkdwn',
+                           text: "<@#{command[:user_id]}> rolls *#{roll.number}d#{roll.sides}#{roll.modifier}*." },
+                   fields: [{ type: 'mrkdwn', text: '*Rolls*' },
+                            { type: 'mrkdwn', text: '*Total*' },
+                            { type: 'plain_text', text: roll.rolls.to_s },
+                            { type: 'plain_text', text: roll.total.to_s }] }]
       )
     rescue ArgumentError
       raise "Invalid dice notation #{command[:text]}"

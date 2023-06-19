@@ -15,16 +15,10 @@ SlackRubyBotServer::Events.configure do |config|
 
       slack_client.chat_postMessage(
         channel: command[:channel_id],
-        blocks: [
-          {
-            type: 'section',
-            text: {
-              type: 'mrkdwn',
-              text: "<@#{command[:user_id]}> rolls *#{roll.number}* dice (diff *#{roll.difficulty}*)."
-            },
-            fields: fields(roll)
-          }
-        ]
+        blocks: [{ type: 'section',
+                   text: { type: 'mrkdwn',
+                           text: "<@#{command[:user_id]}> rolls *#{roll.number}* dice (diff *#{roll.difficulty}*)." },
+                   fields: fields(roll) }]
       )
     rescue ArgumentError
       raise "Invalid dice notation #{command[:text]}"
@@ -36,55 +30,18 @@ end
 
 def fields(roll)
   if roll.extra_rolls.empty?
-    [
-      {
-        type: 'mrkdwn',
-        text: '*Rolls*'
-      },
-      {
-        type: 'mrkdwn',
-        text: '*Result*'
-      },
-      {
-        type: 'plain_text',
-        text: roll.rolls.to_s
-      },
-      {
-        type: 'mrkdwn',
-        text: result(roll)
-      }
-    ]
+    [{ type: 'mrkdwn', text: '*Rolls*' },
+     { type: 'mrkdwn', text: '*Result*' },
+     { type: 'plain_text', text: roll.rolls.to_s },
+     { type: 'mrkdwn', text: result(roll) }]
   else
-    [
-      {
-        type: 'mrkdwn',
-        text: '*Rolls*'
-      },
-      {
-        type: 'mrkdwn',
-        text: '*Extra Rolls*'
-      },
-      {
-        type: 'plain_text',
-        text: roll.rolls.to_s
-      },
-      {
-        type: 'plain_text',
-        text: roll.extra_rolls.to_s
-      },
-      {
-        type: 'mrkdwn',
-        text: '*Result*'
-      },
-      {
-        type: 'plain_text',
-        text: ' '
-      },
-      {
-        type: 'mrkdwn',
-        text: result(roll)
-      }
-    ]
+    [{ type: 'mrkdwn', text: '*Rolls*' },
+     { type: 'mrkdwn', text: '*Extra Rolls*' },
+     { type: 'plain_text', text: roll.rolls.to_s },
+     { type: 'plain_text', text: roll.extra_rolls.to_s },
+     { type: 'mrkdwn', text: '*Result*' },
+     { type: 'plain_text', text: ' ' },
+     { type: 'mrkdwn', text: result(roll) }]
   end
 end
 

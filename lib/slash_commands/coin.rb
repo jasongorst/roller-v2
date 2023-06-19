@@ -12,21 +12,9 @@ SlackRubyBotServer::Events.configure do |config|
 
     slack_client.chat_postMessage(
       channel: command[:channel_id],
-      blocks: [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: "<@#{command[:user_id]}> flips a coin #{command[:text]}."
-          },
-          fields: [
-            {
-              type: 'mrkdwn',
-              text: "*Result*\n#{flip}!"
-            }
-          ]
-        }
-      ]
+      blocks: [{ type: 'section',
+                 text: { type: 'mrkdwn', text: "<@#{command[:user_id]}> flips a coin." },
+                 fields: [{ type: 'mrkdwn', text: "*Result*\n#{flip}!" }] }]
     )
 
     nil
