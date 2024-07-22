@@ -2,18 +2,18 @@
 
 module Roller
   class WoD
-    NOEXPLODE = %w[noexplode noexplod noexplo noexpl noexp noex noe no n].freeze
+    EXPLODE = "explode"
 
     attr_reader :number, :difficulty, :explode, :rolls, :extra_rolls
 
-    def initialize(number, difficulty, explode = true)
+    def initialize(number, difficulty, explode: false)
       @number = number
       @difficulty = difficulty
       @explode = explode
     end
 
     def self.parse(args)
-      # FORMAT: {number of dice} {difficulty} ["noexplode"]
+      # FORMAT: {number of dice} {difficulty} ["explode"]
       args = args.split
 
       number_str = args.shift
@@ -24,9 +24,15 @@ module Roller
       difficulty = Integer(diff_str) rescue 0
       raise(ArgumentError, "Invalid difficulty: #{diff_str}.") if difficulty < 2 || difficulty > 9
 
-      explode = !NOEXPLODE.include?(args.shift&.downcase)
+      explode_str = args.shift
 
-      new(number, difficulty, explode)
+      if explode_str
+        explode = EXPLODE.start_with?(explode_str.downcase)
+      else
+        explode = false
+      end
+
+      new(number, difficulty, explode: explode)
     end
 
     def roll
