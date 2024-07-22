@@ -8,7 +8,11 @@ SlackRubyBotServer::Events.configure do |config|
     slack_client = Slack::Web::Client.new(token: team.token)
     slack_client.conversations_join(channel: command[:channel_id])
 
-    flip = %w[Heads Tails].sample
+    flip = if rand < 1.0e-4
+             "The coin lands balanced on its edge. Spooky."
+           else
+             %w[Heads Tails].sample
+           end
 
     slack_client.chat_postMessage(
       channel: command[:channel_id],
