@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../roller/wod'
+require_relative '../roller/world_of_darkness'
 
 SlackRubyBotServer::Events.configure do |config|
   config.on :command, '/roll' do |command|
@@ -11,7 +11,7 @@ SlackRubyBotServer::Events.configure do |config|
     slack_client.conversations_join(channel: command[:channel_id])
 
     begin
-      roll = Roller::WoD.parse(command[:text]).roll
+      roll = Roller::WorldOfDarkness.parse(command[:text]).roll
 
       slack_client.chat_postMessage(
         channel: command[:channel_id],

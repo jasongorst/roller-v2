@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Roller
-  class WoD
+  class WorldOfDarkness
     EXPLODE = "explode"
 
     attr_reader :number, :difficulty, :explode, :rolls, :extra_rolls
@@ -38,8 +38,11 @@ module Roller
     def roll
       @rolls = roll_dice(@number)
 
-      @extra_rolls = []
-      @extra_rolls = roll_exploding_dice(@rolls) if @explode
+      @extra_rolls = if @explode
+                       roll_exploding_dice(@rolls)
+                     else
+                       []
+                     end
 
       self
     end

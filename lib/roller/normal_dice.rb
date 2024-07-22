@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Roller
-  class Dice
+  class NormalDice
     PATTERN = /^(?<number>\d+)?[dD](?<sides>\d+)(?<modifier>[+-]\d+)?$/
 
     attr_reader :number, :sides, :rolls, :total
