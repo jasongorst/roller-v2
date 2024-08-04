@@ -17,7 +17,7 @@ SlackRubyBotServer::Events.configure do |config|
         channel: command[:channel_id],
         blocks: [{ type: 'section',
                    text: { type: 'mrkdwn',
-                           text: "<@#{command[:user_id]}> rolls *#{roll.number}* dice (diff *#{roll.difficulty}*)." },
+                           text: "<@#{command[:user_id]}> rolls *#{roll.number}* dice (diff *#{roll.difficulty}*) #{'with exploding 10s' if roll.explode}." },
                    fields: fields(roll) }]
       )
     rescue ArgumentError
