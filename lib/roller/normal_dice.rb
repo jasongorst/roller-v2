@@ -1,10 +1,9 @@
-# frozen_string_literal: true
-
 module Roller
   class NormalDice
     PATTERN = /^(?<number>\d+)?[dD](?<sides>\d+)(?<modifier>[+-]\d+)?$/
 
-    attr_reader :number, :sides, :rolls, :total
+    attr_accessor :number, :sides
+    attr_reader :rolls, :total
 
     def initialize(number, sides, modifier = 0)
       @number = number

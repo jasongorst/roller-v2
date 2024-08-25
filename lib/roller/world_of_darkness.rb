@@ -1,10 +1,9 @@
-# frozen_string_literal: true
-
 module Roller
   class WorldOfDarkness
     EXPLODE = "explode"
 
-    attr_reader :number, :difficulty, :explode, :rolls, :extra_rolls
+    attr_accessor :number, :difficulty, :explode
+    attr_reader :rolls, :extra_rolls
 
     def initialize(number, difficulty, explode: false)
       @number = number
