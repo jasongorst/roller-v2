@@ -1,47 +1,55 @@
-# frozen_string_literal: true
-
 require_relative '../roller/world_of_darkness'
 
 SlackRubyBotServer::Events.configure do |config|
   config.on :command, '/roll' do |command|
-    command.logger.info 'Rolling some dice (like WoD).'
-
-    team = Team.where(team_id: command[:team_id]).first || raise("Cannot find team with ID #{command[:team_id]}.")
-    slack_client = Slack::Web::Client.new(token: team.token)
-    slack_client.conversations_join(channel: command[:channel_id])
+    command.logger.info 'Rolling some dice (WoD-style).'
 
     begin
       roll = Roller::WorldOfDarkness.parse(command[:text]).roll
 
-      slack_client.chat_postMessage(
-        channel: command[:channel_id],
-        blocks: [{ type: 'section',
-                   text: { type: 'mrkdwn',
-                           text: "<@#{command[:user_id]}> rolls *#{roll.number}* dice (diff *#{roll.difficulty}*) #{'with exploding 10s' if roll.explode}." },
-                   fields: fields(roll) }]
-      )
+      {
+        response_type: "in_channel",
+        attachments: [
+          {
+            color: color(roll),
+            blocks: [{
+                       type: 'section',
+                       text: {
+                         type: 'mrkdwn',
+                         text: "<@#{command[:user_id]}> rolls *#{roll.number}* dice (diff *#{roll.difficulty}*) #{'with exploding 10s' if roll.explode}."
+                       },
+                       fields: fields(roll)
+                     }]
+          }
+        ]
+      }
     rescue ArgumentError
-      raise "Invalid dice notation #{command[:text]}"
+      {
+        response_type: "ephemeral",
+        text: "Sorry, I can't figure out how to /roll #{command[:text]}."
+      }
     end
-
-    nil
   end
 end
 
 def fields(roll)
   if roll.extra_rolls.empty?
-    [{ type: 'mrkdwn', text: '*Rolls*' },
-     { type: 'mrkdwn', text: '*Result*' },
-     { type: 'plain_text', text: roll.rolls.to_s },
-     { type: 'mrkdwn', text: result(roll) }]
+    [
+      { type: 'mrkdwn', text: '*Rolls*' },
+      { type: 'mrkdwn', text: '*Result*' },
+      { type: 'plain_text', text: roll.rolls.to_s },
+      { type: 'mrkdwn', text: result(roll) }
+    ]
   else
-    [{ type: 'mrkdwn', text: '*Rolls*' },
-     { type: 'mrkdwn', text: '*Extra Rolls*' },
-     { type: 'plain_text', text: roll.rolls.to_s },
-     { type: 'plain_text', text: roll.extra_rolls.to_s },
-     { type: 'mrkdwn', text: '*Result*' },
-     { type: 'plain_text', text: ' ' },
-     { type: 'mrkdwn', text: result(roll) }]
+    [
+      { type: 'mrkdwn', text: '*Rolls*' },
+      { type: 'mrkdwn', text: '*Extra Rolls*' },
+      { type: 'plain_text', text: roll.rolls.to_s },
+      { type: 'plain_text', text: roll.extra_rolls.to_s },
+      { type: 'mrkdwn', text: '*Result*' },
+      { type: 'plain_text', text: ' ' },
+      { type: 'mrkdwn', text: result(roll) }
+    ]
   end
 end
 
@@ -52,5 +60,18 @@ def result(roll)
     'Failure'
   else
     "Successes: *#{roll.check}*"
+  end
+end
+
+def color(roll)
+  if roll.botch?
+    # danger
+    'a30200'
+  elsif roll.failure?
+    # warning
+    'daa038'
+  else
+    # good
+    '#2eb886'
   end
 end
