@@ -20,6 +20,7 @@ module Roller
                else
                  Integer(match[:number])
                end
+
       raise(ArgumentError, 'Number of dice can\'t be zero.') if number.zero?
 
       sides = Integer(match[:sides])

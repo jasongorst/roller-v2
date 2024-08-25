@@ -25,10 +25,10 @@ module Roller
 
       explode_str = args.shift
 
-      if explode_str
-        explode = EXPLODE.start_with?(explode_str.downcase)
+      explode = if explode_str
+        EXPLODE.start_with?(explode_str.downcase)
       else
-        explode = false
+        false
       end
 
       new(number, difficulty, explode: explode)
