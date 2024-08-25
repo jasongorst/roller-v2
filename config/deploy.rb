@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'mina/git'
 require 'mina/bundler'
 require 'mina/rbenv' # for rbenv support. (https://rbenv.org)

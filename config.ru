@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'app'
 
 yaml = ERB.new(File.read(File.expand_path('config/database.yml', __dir__))).result
