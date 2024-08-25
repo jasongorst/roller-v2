@@ -1,6 +1,5 @@
 ENV['RACK_ENV'] ||= 'development'
 
-require 'active_record' # required for slack-ruby-bot-server-events
 require 'bundler/setup'
 
 Bundler.require :default
