@@ -21,7 +21,7 @@ module Roller
 
       diff_str = args.shift
       difficulty = Integer(diff_str) rescue 0
-      raise(ArgumentError, "Invalid difficulty: #{diff_str}.") if difficulty < 2 || difficulty > 9
+      raise(ArgumentError, "Invalid difficulty: #{diff_str}.") if difficulty < 2 || difficulty > 10
 
       explode_str = args.shift
 
