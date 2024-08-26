@@ -37,9 +37,9 @@ end
 def fields(roll)
   if roll.extra_rolls.empty?
     [
-      { type: 'text', text: 'Rolls', style: { bold: true } },
-      { type: 'text', text: 'Result', style: { bold: true }  },
-      { type: 'text', text: roll.rolls.to_s },
+      { type: 'mrkdwn', text: '*Rolls*' },
+      { type: 'mrkdwn', text: '*Result*' },
+      { type: 'plain_text', text: roll.rolls.to_s },
       { type: 'mrkdwn', text: result(roll) }
     ]
   else
