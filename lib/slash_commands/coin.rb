@@ -3,7 +3,7 @@ SlackRubyBotServer::Events.configure do |config|
     command.logger.info 'Flipping a coin.'
 
     flip = if rand < 1.0e-4
-             "The coin lands balanced on its edge. Spooky."
+             "The coin lands balanced on its edge. Spooky"
            else
              %w[Heads Tails].sample
            end
@@ -12,6 +12,7 @@ SlackRubyBotServer::Events.configure do |config|
       response_type: "in_channel",
       attachments: [
         {
+          color: "#2eb886",
           blocks: [{
                      type: 'section',
                      text: { type: 'mrkdwn', text: "<@#{command[:user_id]}> flips a coin." },

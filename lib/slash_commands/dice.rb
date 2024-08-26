@@ -11,6 +11,7 @@ SlackRubyBotServer::Events.configure do |config|
         response_type: "in_channel",
         attachments: [
           {
+            color: "#2eb886",
             blocks: [{
                        type: 'section',
                        text: {
