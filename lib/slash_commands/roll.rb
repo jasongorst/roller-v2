@@ -16,7 +16,7 @@ SlackRubyBotServer::Events.configure do |config|
                        type: 'section',
                        text: {
                          type: 'mrkdwn',
-                         text: "<@#{command[:user_id]}> rolls *#{roll.number}* dice (diff *#{roll.difficulty}*) #{'with exploding 10s' if roll.explode}."
+                         text: "<@#{command[:user_id]}> rolls *#{roll.number}* dice (diff *#{roll.difficulty}*)#{' with exploding 10s' if roll.explode}."
                        },
                        fields: fields(roll)
                      }]
