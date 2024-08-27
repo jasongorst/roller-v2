@@ -1,6 +1,7 @@
 module Roller
   class WorldOfDarkness
     EXPLODE = "explode"
+    DEFAULT_DIFF_STR = 6
 
     attr_accessor :number, :difficulty, :explode
     attr_reader :rolls, :extra_rolls
@@ -19,7 +20,7 @@ module Roller
       number = Integer(number_str) rescue 0
       raise(ArgumentError, "Invalid number of dice: #{number_str}.") unless number.positive?
 
-      diff_str = args.shift
+      diff_str = args.shift || DEFAULT_DIFF_STR
       difficulty = Integer(diff_str) rescue 0
       raise(ArgumentError, "Invalid difficulty: #{diff_str}.") if difficulty < 2 || difficulty > 10
 
