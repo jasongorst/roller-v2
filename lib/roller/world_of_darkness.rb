@@ -1,7 +1,7 @@
 module Roller
   class WorldOfDarkness
     EXPLODE = "explode"
-    DEFAULT_DIFF_STR = 6
+    DEFAULT_DIFFICULTY = 6
 
     attr_accessor :number, :difficulty, :explode
     attr_reader :rolls, :extra_rolls
@@ -13,25 +13,27 @@ module Roller
     end
 
     def self.parse(args)
-      # FORMAT: {number of dice} {difficulty} ["explode"]
+      # FORMAT: {number of dice} [difficulty] ["explode"]
       args = args.split
 
       number_str = args.shift
-      number = Integer(number_str) rescue 0
-      raise(ArgumentError, "Invalid number of dice: #{number_str}.") unless number.positive?
+      number = Integer(number_str, exception: false)
 
-      diff_str = args.shift || DEFAULT_DIFF_STR
-      difficulty = Integer(diff_str) rescue 0
-      raise(ArgumentError, "Invalid difficulty: #{diff_str}.") if difficulty < 2 || difficulty > 10
+      raise(ArgumentError, "Invalid number of dice: #{number_str}.") unless number&.positive?
 
-      explode_str = args.shift
+      diff_str = args.shift
+      difficulty = Integer(diff_str, exception: false)
 
-      explode = if explode_str
-        EXPLODE.start_with?(explode_str.downcase)
+      if difficulty
+        explode_str = args.shift
       else
-        false
+        difficulty = DEFAULT_DIFFICULTY
+        explode_str = diff_str
       end
 
+      raise(ArgumentError, "Invalid difficulty: #{diff_str}.") if difficulty < 2 || difficulty > 10
+
+      explode = explode_str && EXPLODE.start_with?(explode_str.downcase)
       new(number, difficulty, explode: explode)
     end
 
