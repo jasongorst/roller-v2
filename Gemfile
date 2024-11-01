@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.5"
+ruby file: ".ruby-version"
 
 # activerecord must load before slack-ruby-bot-server
 gem "activerecord", "~> 7.1.3.4", "< 7.2", require: "active_record"
