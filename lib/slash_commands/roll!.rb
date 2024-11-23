@@ -37,20 +37,14 @@ end
 def fields(roll)
   if roll.extra_rolls.empty?
     [
-      { type: 'mrkdwn', text: '*Rolls*' },
-      { type: 'mrkdwn', text: '*Result*' },
-      { type: 'plain_text', text: roll.rolls.to_s },
-      { type: 'mrkdwn', text: result(roll) }
+      { type: 'mrkdwn', text: "*Rolls*\n#{roll.rolls.to_s}" },
+      { type: 'mrkdwn', text: "*Result*\n#{result(roll)}" }
     ]
   else
     [
-      { type: 'mrkdwn', text: '*Rolls*' },
-      { type: 'mrkdwn', text: '*Extra Rolls*' },
-      { type: 'plain_text', text: roll.rolls.to_s },
-      { type: 'plain_text', text: roll.extra_rolls.to_s },
-      { type: 'mrkdwn', text: '*Result*' },
-      { type: 'plain_text', text: ' ' },
-      { type: 'mrkdwn', text: result(roll) }
+      { type: 'mrkdwn', text: "*Rolls*\n#{roll.rolls.to_s}" },
+      { type: 'mrkdwn', text: "*Extra Rolls*\n#{roll.extra_rolls.to_s}" },
+      { type: 'mrkdwn', text: "*Result*\n#{result(roll)}" }
     ]
   end
 end

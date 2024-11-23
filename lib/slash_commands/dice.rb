@@ -19,10 +19,8 @@ SlackRubyBotServer::Events.configure do |config|
                          text: "<@#{command[:user_id]}> rolls *#{roll.number}d#{roll.sides}#{roll.modifier}*."
                        },
                        fields: [
-                         { type: 'mrkdwn', text: '*Rolls*' },
-                         { type: 'mrkdwn', text: '*Total*' },
-                         { type: 'plain_text', text: roll.rolls.to_s },
-                         { type: 'plain_text', text: roll.total.to_s }
+                         { type: 'mrkdwn', text: "*Rolls*\n#{roll.rolls.to_s}" },
+                         { type: 'mrkdwn', text: "*Total*\n#{roll.total.to_s}" }
                        ]
                      }]
           }
