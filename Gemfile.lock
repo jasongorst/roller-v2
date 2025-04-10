@@ -188,7 +188,7 @@ DEPENDENCIES
   slack-ruby-bot-server-events (~> 0.3.2)
 
 RUBY VERSION
-   ruby 3.3.5p100
+   ruby 3.3.8p144
 
 BUNDLED WITH
    2.5.22
